@@ -1,0 +1,8 @@
+$root="workspace/dl_vineyard_segmentation"
+#networks
+#utils
+#orthoseg.py
+#orthosegmentation.py
+#requirements.txt
+#session
+ortho_mask.tif

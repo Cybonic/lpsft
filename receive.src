@@ -1,0 +1,6 @@
+
+cd "D:\Dropbox\4 - CODE_WORKSPACE\rangenet\lidar-bonnetal"
+
+get "train_rattnet_knn.py"
+get "dataset/kitti/parser_rattnet.py"  dataset/kitti/parser_rattnet.py"
+get "script_isr_model_train_all_cross_val.py" 
