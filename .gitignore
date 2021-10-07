@@ -1,0 +1,8 @@
+env/
+workspace.code-workspace
+psftp/
+*.pyc
+*.drawio
+saved/
+checkpoints/
+update.txt
