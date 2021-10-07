@@ -34,7 +34,7 @@ def get_items(path):
      # Load from ignore files item to ignore
     files_to_ignore = []
     for file in open(IGNORE_FILE,'r'):
-        file = file.strip().strip('*')
+        file = file.strip().strip('*').strip('/')
         files_to_ignore.append(file)
     # Add files and dir that not to send at any circumstances  
     files_to_ignore.extend(['.gitignore'])
