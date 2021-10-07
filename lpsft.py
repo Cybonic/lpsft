@@ -60,15 +60,18 @@ def get_valide_items(path,files_to_ignore):
         # Get the relative path begining at the root package  
         sub_folder_list = dirpath.split(os.sep)[index+1:]
         
-        if len(sub_folder_list)>0: # Only if there is one or more folder 
+        files.extend([file for file in filenames if not file in files_to_ignore])
+
+        dirs.extend([dirname for dirname in dirnames if not dirname in files_to_ignore])
+        # if len(sub_folder_list)>0: # Only if there is one or more folder 
             # Check only the folders at the package' root location
-            if sub_folder_list[0] in files_to_ignore:  
-                continue
-            dirs.extend([os.path.join(sub_folder_list[0])])
-        else:
+        #    if sub_folder_list[0] in files_to_ignore:  
+        #        continue
+        #    dirs.extend([os.path.join(sub_folder_list[0])])
+        #else:
             # This way only files that are at the package's root are added 
-            files.extend([os.path.join(file) for file in filenames if not file in files_to_ignore])
-        
+            
+        break
     return(files,dirs)
 
 if __name__ == '__main__':
@@ -157,9 +160,9 @@ if __name__ == '__main__':
                 tmp.write(remote_cmd + '\n')
             
             for f in remote['dir']:
-                absolute_file = os.path.join(current_root,f) 
-                print(absolute_file)
-                remote_cmd = ' '.join([cmd,'-r',absolute_file,f])
+                #absolute_file = os.path.join(current_root,f) 
+                #print(absolute_file)
+                remote_cmd = ' '.join([cmd,'-r',f,f])
                 tmp.write(remote_cmd + '\n')
             
         
