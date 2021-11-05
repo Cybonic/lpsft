@@ -5,9 +5,9 @@ from os import walk
 
 # server      = "193.136.205.249"
 # server      = "192.168.0.113"
-server      ='tiago-deep'
-passward    = 'btph1312'
-usr         = 'tiago'
+#server      ='tiago-deep'
+#passward    = 'btph1312'
+# usr         = 'tiago'
 
 
 
@@ -104,15 +104,31 @@ if __name__ == '__main__':
       required=False,
       help='destination IP address',
     )
+    parser.add_argument(
+      '-u','--usr',
+      type=str,
+      default = "tiago",
+      required=False,
+      help='remote user name',
+    )
+    parser.add_argument(
+      '-p','--pas',
+      type=str,
+      default = "btph1312",
+      required=False,
+      help='remote passwoard',
+    )
 
     FLAGS, unparsed = parser.parse_known_args()
 
     print("[INF] File: " + FLAGS.f)
     print("[INF] Server: "+ FLAGS.s)
+    print("[INF] User: "+ FLAGS.usr)
+    print("[INF] Password: " + FLAGS.pas)
 
     # Login
-    user_login  = usr + "@" + FLAGS.s
-    pass_login  =' '.join(['-pw',passward]) 
+    user_login  = FLAGS.usr + "@" + FLAGS.s
+    pass_login  =' '.join(['-pw',FLAGS.pas]) 
     login       = ' '.join([user_login,pass_login])
     psftp_cmd         = 'psftp'
 
