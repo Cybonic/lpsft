@@ -4,14 +4,12 @@ import tempfile
 from os import walk
 
 # server      = "193.136.205.249"
-server      = "192.168.0.106"
+# server      = "192.168.0.113"
+server      ='tiago-deep'
 passward    = 'btph1312'
 usr         = 'tiago'
 
-user_login  = usr + "@" + server
-pass_login  =' '.join(['-pw',passward]) 
-login       = ' '.join([user_login,pass_login])
-psftp_cmd         = 'psftp'
+
 
 subflag = '-b'
 
@@ -99,8 +97,25 @@ if __name__ == '__main__':
       required=False,
       help='Dataset to train with. No Default',
     )
+    parser.add_argument(
+      '-s',
+      type=str,
+      default = "tiago-deep",
+      required=False,
+      help='destination IP address',
+    )
 
     FLAGS, unparsed = parser.parse_known_args()
+
+    print("[INF] File: " + FLAGS.f)
+    print("[INF] Server: "+ FLAGS.s)
+
+    # Login
+    user_login  = usr + "@" + FLAGS.s
+    pass_login  =' '.join(['-pw',passward]) 
+    login       = ' '.join([user_login,pass_login])
+    psftp_cmd         = 'psftp'
+
 
     current_root = os.getcwd()
 
@@ -113,11 +128,10 @@ if __name__ == '__main__':
         print("[ERR] File does not exist: " + FLAGS.f)
         exit(0)
 
-    print("[INF] Loaded File: " + FLAGS.f)
-
+    
     
     absolute_path = os.path.join(current_root,FLAGS.f)
-    print("[WARN] Path" + absolute_path)
+    print("[WARN] Path " + absolute_path)
     # local file parsing
     for line in open(absolute_path,'r'):
         print("[DEBUG] line: " + line) 

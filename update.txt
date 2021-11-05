@@ -1,2 +1,2 @@
-$root="workspace/dl_vineyard_segmentation"
-$all
+#$root="workspace/dl_vineyard_segmentation"
+#$all
