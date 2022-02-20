@@ -100,7 +100,7 @@ if __name__ == '__main__':
     parser.add_argument(
       '-s',
       type=str,
-      default = "tiago-deep",
+      default = "192.168.0.101",
       required=False,
       help='destination IP address',
     )
@@ -133,7 +133,7 @@ if __name__ == '__main__':
     psftp_cmd         = 'psftp'
 
 
-    current_root = os.getcwd()
+    local_root = os.getcwd()
 
     fd, path = tempfile.mkstemp()
     remote = {'root': '' ,'files':[],'dir':[]}
@@ -146,7 +146,7 @@ if __name__ == '__main__':
 
     
     
-    absolute_path = os.path.join(current_root,FLAGS.f)
+    absolute_path = os.path.join(local_root,FLAGS.f)
     print("[WARN] Path " + absolute_path)
     # local file parsing
     for line in open(absolute_path,'r'):
@@ -159,16 +159,19 @@ if __name__ == '__main__':
             continue 
         elif "$all" in line:
             # update all valide items (ie, files and folder)
-            files,dirs = get_items(current_root)
+            files,dirs = get_items(local_root)
             remote['files'] = files
             remote['dir'] = dirs
             print(remote)
-             
         else:
-            if os.path.isfile(line):
+            absline= os.path.join(local_root,line)
+            print("[DEBUG] line: " + absline) 
+            if os.path.isfile(absline):
                 remote['files'].append(line)
-            if os.path.isdir(line):
+            elif os.path.isdir(absline):
                 remote['dir'].append(line)
+            else:
+                print(f'***** [WARN] Does not exists: {line}')
 
     # destination file code building  
     try:
@@ -190,7 +193,7 @@ if __name__ == '__main__':
                 tmp.write(remote_cmd + '\n')
             
             for f in remote['dir']:
-                #absolute_file = os.path.join(current_root,f) 
+                #absolute_file = os.path.join(local_root,f) 
                 #print(absolute_file)
                 remote_cmd = ' '.join([cmd,'-r',f,f])
                 tmp.write(remote_cmd + '\n')
